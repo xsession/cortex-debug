@@ -49,6 +49,7 @@ If the type is marked as `{...}` it means that it is a complex item can have mul
 | liveWatch<br>.enabled | boolean | Both | Enable/Disable Live Watch. Only applies to OpenOCD |
 | liveWatch<br>.samplesPerSecond | number | Both | Maximum number of samples per second. Different from GUI refresh-rate, which is a user/workspace setting |
 | loadFiles | string[] | Launch | List of files (hex/bin/elf files) to load/program instead of the executable file. Symbols are not loaded (see `symbolFiles`). Can be an empty list to specify none. If this property does not exist, then the executable is used to program the device |
+| memoryAddressUnitBytes | number | Both | Number of bytes represented by one target memory address step. Use 1 for byte-addressed MCUs such as ARM and AVR, and 2 for 16-bit word-addressed MCUs such as TI C2000 C28x and Microchip dsPIC/PIC24. |
 | machine | string | Both | Machine Type Selection - used for QEMU server type |
 | numberOfProcessors | number | Both | Number of processors/cores in the target device. |
 | objdumpPath | string | Both | This setting can be used to override the objdump (used to find globals/statics) path user/workspace setting for a particular launch configuration. This should be the full pathname to the executable (or name of the executable if it is in your PATH). Note that other toolchain executables with the configured prefix must still be available. The program 'nm' is also expected alongside |

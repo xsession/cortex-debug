@@ -21,6 +21,7 @@
       "gdbPath": "PATH/TO/YOUR/PIC_OR_DSPIC_GDB",
       "gdbTarget": "localhost:3333",
       "svdFile": "${workspaceFolder}/svd/microchip/dspic30f5011.svd",
+      "memoryAddressUnitBytes": 2,
       "overrideAttachCommands": [
         "target-select extended-remote localhost:3333",
         "interpreter-exec console \"monitor halt\""
@@ -39,6 +40,7 @@
       "executable": "${workspaceFolder}/build/firmware.elf",
       "gdbPath": "avr-gdb",
       "gdbTarget": "localhost:3333",
+      "memoryAddressUnitBytes": 1,
       "overrideAttachCommands": [
         "target-select extended-remote localhost:3333",
         "interpreter-exec console \"monitor halt\""
@@ -58,6 +60,7 @@
       "gdbPath": "PATH/TO/C28X_CAPABLE_GDB",
       "gdbTarget": "localhost:3333",
       "svdFile": "${workspaceFolder}/svd/ti/tms320f28069.svd",
+      "memoryAddressUnitBytes": 2,
       "overrideAttachCommands": [
         "target-select extended-remote localhost:3333",
         "interpreter-exec console \"monitor halt\""
@@ -77,6 +80,7 @@
       "gdbPath": "arm-none-eabi-gdb",
       "gdbTarget": "localhost:3333",
       "svdFile": "${workspaceFolder}/svd/ti/tms320f28m35x_m3.svd",
+      "memoryAddressUnitBytes": 1,
       "runToEntryPoint": "main",
       "overrideAttachCommands": [
         "target-select extended-remote localhost:3333",
@@ -94,6 +98,7 @@
       "gdbPath": "PATH/TO/C28X_CAPABLE_GDB",
       "gdbTarget": "localhost:3334",
       "svdFile": "${workspaceFolder}/svd/ti/tms320f28m35x_c28x.svd",
+      "memoryAddressUnitBytes": 2,
       "overrideAttachCommands": [
         "target-select extended-remote localhost:3334",
         "interpreter-exec console \"monitor halt\""
@@ -109,6 +114,7 @@
       "executable": "${workspaceFolder}/build/core1.elf",
       "gdbPath": "PATH/TO/CORE_GDB",
       "gdbTarget": "localhost:3334",
+      "memoryAddressUnitBytes": 1,
       "overrideAttachCommands": [
         "target-select extended-remote localhost:3334",
         "interpreter-exec console \"monitor halt\""

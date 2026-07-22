@@ -1127,6 +1127,15 @@
                                 "description": "This is for 'XPERIPHERALS' window provided by 'mcu-debug.peripheral-viewer' and 'Embedded Tools' Extension from Microsoft. It can be a simple file name. For 'mcu-debug.peripheral-viewer' or more based on a CMSIS pack or deviceName. See 'mcu-debug.peripheral-viewer' for format",
                                 "type": "string"
                             },
+                            "memoryAddressUnitBytes": {
+                                "default": 1,
+                                "description": "Number of bytes represented by one target memory address step. Use 1 for byte-addressed MCUs such as ARM and AVR, and 2 for 16-bit word-addressed MCUs such as TI C2000 C28x and Microchip dsPIC/PIC24.",
+                                "enum": [
+                                    1,
+                                    2
+                                ],
+                                "type": "number"
+                            },
                             "rttConfig": {
                                 "type": "object",
                                 "description": "SEGGER's Real Time Trace (RTT) and supported by JLink, OpenOCD and perhaps others in the future",
@@ -2352,6 +2361,15 @@
                                 "description": "This is for 'XPERIPHERALS' window provided by 'mcu-debug.peripheral-viewer' and 'Embedded Tools' Extension from Microsoft. It can be a simple file name. For 'mcu-debug.peripheral-viewer' or more based on a CMSIS pack or deviceName. See 'mcu-debug.peripheral-viewer' for format",
                                 "type": "string"
                             },
+                            "memoryAddressUnitBytes": {
+                                "default": 1,
+                                "description": "Number of bytes represented by one target memory address step. Use 1 for byte-addressed MCUs such as ARM and AVR, and 2 for 16-bit word-addressed MCUs such as TI C2000 C28x and Microchip dsPIC/PIC24.",
+                                "enum": [
+                                    1,
+                                    2
+                                ],
+                                "type": "number"
+                            },
                             "rttConfig": {
                                 "type": "object",
                                 "description": "SEGGER's Real Time Trace (RTT) and supported by JLink, OpenOCD and perhaps others in the future",
@@ -2965,6 +2983,7 @@
                             "gdbPath": "${3:path/to/target-gdb}",
                             "gdbTarget": "${4:localhost:3333}",
                             "svdFile": "${5:${workspaceFolder}/svd/vendor/device.svd}",
+                            "memoryAddressUnitBytes": "${6|1,2|}",
                             "overrideAttachCommands": [
                                 "target-select extended-remote ${4:localhost:3333}",
                                 "interpreter-exec console \"monitor halt\""
@@ -2988,6 +3007,7 @@
                             "gdbPath": "${3:path/to/pic-or-dspic-gdb}",
                             "gdbTarget": "localhost:3333",
                             "svdFile": "${4:${workspaceFolder}/svd/microchip/dspic30f5011.svd}",
+                            "memoryAddressUnitBytes": 2,
                             "overrideAttachCommands": [
                                 "target-select extended-remote localhost:3333",
                                 "interpreter-exec console \"monitor halt\""
@@ -3007,6 +3027,7 @@
                             "servertype": "external",
                             "gdbPath": "${3:avr-gdb}",
                             "gdbTarget": "localhost:3333",
+                            "memoryAddressUnitBytes": 1,
                             "overrideAttachCommands": [
                                 "target-select extended-remote localhost:3333",
                                 "interpreter-exec console \"monitor halt\""
@@ -3027,6 +3048,7 @@
                             "gdbPath": "${3:path/to/c28x-capable-gdb}",
                             "gdbTarget": "localhost:3333",
                             "svdFile": "${4:${workspaceFolder}/svd/ti/tms320f28069.svd}",
+                            "memoryAddressUnitBytes": 2,
                             "overrideAttachCommands": [
                                 "target-select extended-remote localhost:3333",
                                 "interpreter-exec console \"monitor halt\""
@@ -3047,6 +3069,7 @@
                             "gdbPath": "${3:path/to/core-gdb}",
                             "gdbTarget": "${4:localhost:3334}",
                             "svdFile": "${5:${workspaceFolder}/svd/vendor/core.svd}",
+                            "memoryAddressUnitBytes": "${6|1,2|}",
                             "overrideAttachCommands": [
                                 "target-select extended-remote ${4:localhost:3334}",
                                 "interpreter-exec console \"monitor halt\""

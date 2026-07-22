@@ -296,6 +296,7 @@ export interface ConfigurationArguments extends DebugProtocol.LaunchRequestArgum
     breakAfterReset: boolean;
     svdFile: string;
     svdAddrGapThreshold: number;
+    memoryAddressUnitBytes: number;
     ctiOpenOCDConfig: CTIOpenOCDConfig;
     rttConfig: RTTConfiguration;
     swoConfig: SWOConfiguration;

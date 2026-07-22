@@ -124,6 +124,15 @@ export class CortexDebugConfigurationProvider implements vscode.DebugConfigurati
         }
 
         if (!config.graphConfig) { config.graphConfig = []; }
+        if (config.memoryAddressUnitBytes === undefined) {
+            config.memoryAddressUnitBytes = 1;
+        } else if (![1, 2].includes(Number(config.memoryAddressUnitBytes))) {
+            vscode.window.showWarningMessage(
+                'launch.json: "memoryAddressUnitBytes" must be 1 or 2. Setting to 1');
+            config.memoryAddressUnitBytes = 1;
+        } else {
+            config.memoryAddressUnitBytes = Number(config.memoryAddressUnitBytes);
+        }
         if (!config.preLaunchCommands) { config.preLaunchCommands = []; }
         if (!config.postLaunchCommands) { config.postLaunchCommands = []; }
         if (!config.preAttachCommands) { config.preAttachCommands = []; }

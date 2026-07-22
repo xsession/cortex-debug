@@ -1416,6 +1416,28 @@ export class GDBDebugSession extends LoggingDebugSession {
         this.disassember.disassembleProtocolRequest(response, args, request);
     }
 
+    private getMemoryAddressUnitBytes(): number {
+        return this.args.memoryAddressUnitBytes === 2 ? 2 : 1;
+    }
+
+    private targetToGdbMemoryAddress(address: number): number {
+        return address * this.getMemoryAddressUnitBytes();
+    }
+
+    private targetToGdbMemoryAddressExpr(address: string): string {
+        const unitBytes = this.getMemoryAddressUnitBytes();
+        if (unitBytes === 1) {
+            return address;
+        }
+
+        const trimmed = `${address}`.trim();
+        if (/^0x[0-9a-f]+$/i.test(trimmed) || /^[0-9]+$/.test(trimmed)) {
+            return hexFormat(parseInt(trimmed) * unitBytes);
+        }
+
+        return `(${trimmed}) * ${unitBytes}`;
+    }
+
     protected readMemoryRequest(response: DebugProtocol.ReadMemoryResponse, args: DebugProtocol.ReadMemoryArguments, request?: DebugProtocol.Request): void {
         if (this.isBusy()) {
             this.busyError(response, args);
@@ -1423,9 +1445,9 @@ export class GDBDebugSession extends LoggingDebugSession {
         }
         const startAddress = parseInt(args.memoryReference);
         const length = args.count;
-        const useAddr = hexFormat(startAddress + (args.offset || 0));
+        const useAddr = hexFormat(this.targetToGdbMemoryAddress(startAddress + (args.offset || 0)));
         response.body = {
-            address: useAddr,
+            address: hexFormat(startAddress + (args.offset || 0)),
             data: ''
         };
         if (length === 0) {
@@ -1463,7 +1485,7 @@ export class GDBDebugSession extends LoggingDebugSession {
             return;
         }
         const startAddress = parseInt(args.memoryReference);
-        const useAddr = hexFormat(startAddress + (args.offset || 0));
+        const useAddr = hexFormat(this.targetToGdbMemoryAddress(startAddress + (args.offset || 0)));
         const buf = Buffer.from(args.data, 'base64');
         const data = buf.toString('hex');
 
@@ -1481,7 +1503,8 @@ export class GDBDebugSession extends LoggingDebugSession {
     }
 
     protected readMemoryRequestCustom(response: DebugProtocol.Response, startAddress: string, length: number) {
-        this.miDebugger.sendCommand(`data-read-memory-bytes "${startAddress}" ${length}`).then((node) => {
+        const useAddr = this.targetToGdbMemoryAddressExpr(startAddress);
+        this.miDebugger.sendCommand(`data-read-memory-bytes "${useAddr}" ${length}`).then((node) => {
             const results = parseReadMemResults(node);
             // const bytes = results.data.match(/[0-9a-f]{2}/g).map((b) => parseInt(b, 16));
             const bytes = [];

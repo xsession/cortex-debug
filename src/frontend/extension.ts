@@ -303,18 +303,23 @@ export class CortexDebugExtension {
 
                         const timestamp = new Date().getTime();
                         const addrEnc = encodeURIComponent(`${address}`);
-                        const uri = vscode.Uri.parse(
-                            `examinememory:///Memory%20[${addrEnc},${length}].cdmem`
-                            + `?address=${addrEnc}&length=${length}&timestamp=${timestamp}`
-                        );
-                        this.memoryProvider.PreRegister(uri);
-                        vscode.workspace.openTextDocument(uri)
-                            .then((doc) => {
-                                this.memoryProvider.Register(doc);
-                                vscode.window.showTextDocument(doc, { viewColumn: 2, preview: false });
-                            }, (error) => {
-                                vscode.window.showErrorMessage(`Failed to examine memory: ${error}`);
-                            });
+                        session.customRequest('get-arguments').then((args) => {
+                            const addressUnitBytes = args?.memoryAddressUnitBytes === 2 ? 2 : 1;
+                            const uri = vscode.Uri.parse(
+                                `examinememory:///Memory%20[${addrEnc},${length}].cdmem`
+                                + `?address=${addrEnc}&length=${length}&addressUnitBytes=${addressUnitBytes}&timestamp=${timestamp}`
+                            );
+                            this.memoryProvider.PreRegister(uri);
+                            vscode.workspace.openTextDocument(uri)
+                                .then((doc) => {
+                                    this.memoryProvider.Register(doc);
+                                    vscode.window.showTextDocument(doc, { viewColumn: 2, preview: false });
+                                }, (error) => {
+                                    vscode.window.showErrorMessage(`Failed to examine memory: ${error}`);
+                                });
+                        }, (error) => {
+                            vscode.window.showErrorMessage(`Failed to read debug configuration: ${error}`);
+                        });
                     },
                     (error) => {
 
