@@ -1,0 +1,119 @@
+{
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "OpenOCD: F28M35x M3 + C28x",
+      "configurations": [
+        "OpenOCD: F28M35x Cortex-M3",
+        "OpenOCD: F28M35x C28x"
+      ],
+      "stopAll": true
+    }
+  ],
+  "configurations": [
+    {
+      "name": "OpenOCD: PIC/dsPIC via PICkit 4 RI4",
+      "type": "cortex-debug",
+      "request": "attach",
+      "servertype": "external",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/firmware.elf",
+      "gdbPath": "PATH/TO/YOUR/PIC_OR_DSPIC_GDB",
+      "gdbTarget": "localhost:3333",
+      "svdFile": "${workspaceFolder}/svd/microchip/dspic30f5011.svd",
+      "overrideAttachCommands": [
+        "target-select extended-remote localhost:3333",
+        "interpreter-exec console \"monitor halt\""
+      ],
+      "overrideResetCommands": [
+        "interpreter-exec console \"monitor reset halt\""
+      ],
+      "showDevDebugOutput": "raw"
+    },
+    {
+      "name": "OpenOCD: AVR via native OpenOCD GDB server",
+      "type": "cortex-debug",
+      "request": "attach",
+      "servertype": "external",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/firmware.elf",
+      "gdbPath": "avr-gdb",
+      "gdbTarget": "localhost:3333",
+      "overrideAttachCommands": [
+        "target-select extended-remote localhost:3333",
+        "interpreter-exec console \"monitor halt\""
+      ],
+      "overrideResetCommands": [
+        "interpreter-exec console \"monitor reset halt\""
+      ],
+      "showDevDebugOutput": "raw"
+    },
+    {
+      "name": "OpenOCD: C2000 C28x",
+      "type": "cortex-debug",
+      "request": "attach",
+      "servertype": "external",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/c28x.out",
+      "gdbPath": "PATH/TO/C28X_CAPABLE_GDB",
+      "gdbTarget": "localhost:3333",
+      "svdFile": "${workspaceFolder}/svd/ti/tms320f28069.svd",
+      "overrideAttachCommands": [
+        "target-select extended-remote localhost:3333",
+        "interpreter-exec console \"monitor halt\""
+      ],
+      "overrideResetCommands": [
+        "interpreter-exec console \"monitor reset halt\""
+      ],
+      "showDevDebugOutput": "raw"
+    },
+    {
+      "name": "OpenOCD: F28M35x Cortex-M3",
+      "type": "cortex-debug",
+      "request": "attach",
+      "servertype": "external",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/m3.elf",
+      "gdbPath": "arm-none-eabi-gdb",
+      "gdbTarget": "localhost:3333",
+      "svdFile": "${workspaceFolder}/svd/ti/tms320f28m35x_m3.svd",
+      "runToEntryPoint": "main",
+      "overrideAttachCommands": [
+        "target-select extended-remote localhost:3333",
+        "interpreter-exec console \"monitor halt\""
+      ],
+      "showDevDebugOutput": "raw"
+    },
+    {
+      "name": "OpenOCD: F28M35x C28x",
+      "type": "cortex-debug",
+      "request": "attach",
+      "servertype": "external",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/c28x.out",
+      "gdbPath": "PATH/TO/C28X_CAPABLE_GDB",
+      "gdbTarget": "localhost:3334",
+      "svdFile": "${workspaceFolder}/svd/ti/tms320f28m35x_c28x.svd",
+      "overrideAttachCommands": [
+        "target-select extended-remote localhost:3334",
+        "interpreter-exec console \"monitor halt\""
+      ],
+      "showDevDebugOutput": "raw"
+    },
+    {
+      "name": "OpenOCD: second core attach template",
+      "type": "cortex-debug",
+      "request": "attach",
+      "servertype": "external",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/core1.elf",
+      "gdbPath": "PATH/TO/CORE_GDB",
+      "gdbTarget": "localhost:3334",
+      "overrideAttachCommands": [
+        "target-select extended-remote localhost:3334",
+        "interpreter-exec console \"monitor halt\""
+      ],
+      "showDevDebugOutput": "raw"
+    }
+  ]
+}

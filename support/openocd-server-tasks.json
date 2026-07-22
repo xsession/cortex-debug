@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "openocd: server PICkit4 RI4",
+      "type": "shell",
+      "command": "${workspaceFolder}/artifacts/windows/openocd-windows-x86_64/openocd.cmd",
+      "args": [
+        "-s",
+        "${workspaceFolder}/tcl",
+        "-f",
+        "programmer/microchip/pickit4-ri4.cfg",
+        "-c",
+        "init"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "openocd: server XDS100v2 F28069",
+      "type": "shell",
+      "command": "${workspaceFolder}/artifacts/windows/openocd-windows-x86_64/openocd-xds100v2.cmd",
+      "args": [
+        "-s",
+        "${workspaceFolder}/tcl",
+        "-f",
+        "board/ti/launchxl-f28069m-xds100v2.cfg",
+        "-c",
+        "init"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "openocd: server XDS100v3 F28M35x",
+      "type": "shell",
+      "command": "${workspaceFolder}/artifacts/windows/openocd-windows-x86_64/openocd-xds100v3.cmd",
+      "args": [
+        "-s",
+        "${workspaceFolder}/tcl",
+        "-f",
+        "board/ti/tms320f28m35x-xds100v3.cfg",
+        "-c",
+        "init; targets"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "openocd: server custom",
+      "type": "shell",
+      "command": "${input:openocdExecutable}",
+      "args": [
+        "-s",
+        "${workspaceFolder}/tcl",
+        "-f",
+        "${input:openocdConfig}",
+        "-c",
+        "${input:openocdCommand}"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "openocdExecutable",
+      "type": "promptString",
+      "description": "OpenOCD executable or wrapper",
+      "default": "${workspaceFolder}/artifacts/windows/openocd-windows-x86_64/openocd.cmd"
+    },
+    {
+      "id": "openocdConfig",
+      "type": "promptString",
+      "description": "OpenOCD board/interface/target config",
+      "default": "board/ti/launchxl-f28069m-xds100v2.cfg"
+    },
+    {
+      "id": "openocdCommand",
+      "type": "promptString",
+      "description": "OpenOCD startup command",
+      "default": "init"
+    }
+  ]
+}

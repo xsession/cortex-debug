@@ -2957,6 +2957,108 @@
                     {
                         "body": {
                             "cwd": "^\"\\${workspaceFolder}\"",
+                            "executable": "${1:./bin/firmware.elf}",
+                            "name": "${2:OpenOCD External Generic MCU}",
+                            "request": "attach",
+                            "type": "cortex-debug",
+                            "servertype": "external",
+                            "gdbPath": "${3:path/to/target-gdb}",
+                            "gdbTarget": "${4:localhost:3333}",
+                            "svdFile": "${5:${workspaceFolder}/svd/vendor/device.svd}",
+                            "overrideAttachCommands": [
+                                "target-select extended-remote ${4:localhost:3333}",
+                                "interpreter-exec console \"monitor halt\""
+                            ],
+                            "overrideResetCommands": [
+                                "interpreter-exec console \"monitor reset halt\""
+                            ],
+                            "showDevDebugOutput": "raw"
+                        },
+                        "description": "Attaches Cortex-Debug to an already-running OpenOCD GDB server for PIC, AVR, C2000 or other non-standard MCU targets",
+                        "label": "Cortex Debug: OpenOCD External Generic MCU"
+                    },
+                    {
+                        "body": {
+                            "cwd": "^\"\\${workspaceFolder}\"",
+                            "executable": "${1:./build/firmware.elf}",
+                            "name": "${2:OpenOCD PIC/dsPIC PICkit4}",
+                            "request": "attach",
+                            "type": "cortex-debug",
+                            "servertype": "external",
+                            "gdbPath": "${3:path/to/pic-or-dspic-gdb}",
+                            "gdbTarget": "localhost:3333",
+                            "svdFile": "${4:${workspaceFolder}/svd/microchip/dspic30f5011.svd}",
+                            "overrideAttachCommands": [
+                                "target-select extended-remote localhost:3333",
+                                "interpreter-exec console \"monitor halt\""
+                            ],
+                            "showDevDebugOutput": "raw"
+                        },
+                        "description": "Attaches Cortex-Debug to native OpenOCD PICkit 4 RI4 PIC/dsPIC sessions",
+                        "label": "Cortex Debug: OpenOCD PIC/dsPIC PICkit4"
+                    },
+                    {
+                        "body": {
+                            "cwd": "^\"\\${workspaceFolder}\"",
+                            "executable": "${1:./build/firmware.elf}",
+                            "name": "${2:OpenOCD AVR}",
+                            "request": "attach",
+                            "type": "cortex-debug",
+                            "servertype": "external",
+                            "gdbPath": "${3:avr-gdb}",
+                            "gdbTarget": "localhost:3333",
+                            "overrideAttachCommands": [
+                                "target-select extended-remote localhost:3333",
+                                "interpreter-exec console \"monitor halt\""
+                            ],
+                            "showDevDebugOutput": "raw"
+                        },
+                        "description": "Attaches Cortex-Debug to native OpenOCD AVR GDB sessions using avr-gdb",
+                        "label": "Cortex Debug: OpenOCD AVR"
+                    },
+                    {
+                        "body": {
+                            "cwd": "^\"\\${workspaceFolder}\"",
+                            "executable": "${1:./build/c28x.out}",
+                            "name": "${2:OpenOCD C2000 C28x}",
+                            "request": "attach",
+                            "type": "cortex-debug",
+                            "servertype": "external",
+                            "gdbPath": "${3:path/to/c28x-capable-gdb}",
+                            "gdbTarget": "localhost:3333",
+                            "svdFile": "${4:${workspaceFolder}/svd/ti/tms320f28069.svd}",
+                            "overrideAttachCommands": [
+                                "target-select extended-remote localhost:3333",
+                                "interpreter-exec console \"monitor halt\""
+                            ],
+                            "showDevDebugOutput": "raw"
+                        },
+                        "description": "Attaches Cortex-Debug to OpenOCD C2000 targets when a C28x-capable GDB is available",
+                        "label": "Cortex Debug: OpenOCD C2000"
+                    },
+                    {
+                        "body": {
+                            "cwd": "^\"\\${workspaceFolder}\"",
+                            "executable": "${1:./build/core.elf}",
+                            "name": "${2:OpenOCD core attach}",
+                            "request": "attach",
+                            "type": "cortex-debug",
+                            "servertype": "external",
+                            "gdbPath": "${3:path/to/core-gdb}",
+                            "gdbTarget": "${4:localhost:3334}",
+                            "svdFile": "${5:${workspaceFolder}/svd/vendor/core.svd}",
+                            "overrideAttachCommands": [
+                                "target-select extended-remote ${4:localhost:3334}",
+                                "interpreter-exec console \"monitor halt\""
+                            ],
+                            "showDevDebugOutput": "raw"
+                        },
+                        "description": "Adds one Cortex-Debug attach configuration for a core exposed by an existing multi-target OpenOCD process",
+                        "label": "Cortex Debug: OpenOCD Multi-core attach"
+                    },
+                    {
+                        "body": {
+                            "cwd": "^\"\\${workspaceFolder}\"",
                             "executable": "${1:./bin/executable.elf}",
                             "name": "${6:Debug with ST-Link}",
                             "request": "launch",
